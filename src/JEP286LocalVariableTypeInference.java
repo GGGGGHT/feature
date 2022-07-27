@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 enum Argument {
     ARRAY(List.class),
@@ -20,7 +21,11 @@ enum Argument {
 
 /**
  * <a href="https://openjdk.org/projects/amber/guides/lvti-faq">QA</a> <br/>
- * <a href="https://openjdk.org/jeps/193">Local-Variable Type Inference</a>
+ * <a href="https://openjdk.org/jeps/193">Local-Variable Type Inference</a> <br/>
+ * <a href="https://openjdk.org/projects/amber/guides/lvti-style-guide">how to use var</a> <br/>
+ *
+ * syntactic sugar<br/>
+ * <img src="../msic/desugar.png" alt="" width="1798" height="787" />
  */
 public class JEP286LocalVariableTypeInference {
     // error
@@ -42,12 +47,21 @@ public class JEP286LocalVariableTypeInference {
             // do something
             System.out.println(x);
         }
+        for (var c = 0; c < 10; c++) {
+            // do something
+        }
 
         try (var fis = new FileInputStream("/")) {
 
         } catch (Exception ignore) {
 
         }
+
+        BiFunction<Integer,Integer,Integer> fun = (var a, var b) -> a + b;
+        // same as:
+        // BiFunction<Integer,Integer,Integer> fun = (a, b) -> a + b;
+        // same as:
+        // BiFunction<Integer,Integer,Integer> fun = Integer::sum;
 
         // error
         // ====================================
@@ -57,6 +71,11 @@ public class JEP286LocalVariableTypeInference {
         // var o;
         // o = "first";
         // var x = System.out::println;
+
+        // (var x, y) -> x.process(y)      // Cannot mix var and inferred formal parameters
+        // in implicitly typed lambda expressions
+        // (var x, int y) -> x.process(y)  // Cannot mix var and manifest types
+        // in explicitly typed lambda expressions
         // ====================================
     }
 }

@@ -14,6 +14,7 @@ import static java.util.Calendar.WEDNESDAY;
 public class JEP325SwitchExpressions {
     public static void main(String[] args) {
 
+        // case label_1, label_2, ..., label_n -> expression;|throw-statement;|block
         var day = new Random().nextInt(8);
         /**
          * switch (day) {
@@ -51,6 +52,7 @@ public class JEP325SwitchExpressions {
             {
                 System.out.println("default");
                 yield 0;
+                // return 0;
             }
         };
 
@@ -63,8 +65,56 @@ public class JEP325SwitchExpressions {
             case "Bar":
                 yield 2;
             default:
-                System.out.println("Neither Foo nor Bar, hmmm...");
-                yield 0;
+                throw new IllegalStateException("Invalid day: " + day);
         };
+
+        // A switch expression must either complete normally with a value or complete abruptly by throwing an exception.
+        /*int i = switch (day) {
+            case MONDAY -> {
+                System.out.println("Monday");
+                // ERROR! Block doesn't contain a yield statement
+                // yield 0;
+            }
+            default -> 1;
+        };*/
+
+        /*var m = switch (day) {
+            case MONDAY, TUESDAY, WEDNESDAY:
+                yield 0;
+            default:
+                System.out.println("Second half of the week");
+                // ERROR! Group doesn't contain a yield statement
+        };*/
+
+       /* var e = new Random().nextInt(2_000_000);
+        z:
+        for (int i = 0; i < MAX_VALUE; ++i) {
+            // Because a switch expression must evaluate to a single value (or throw an exception),
+            // you can't jump through a switch expression with a break, yield, return, or continue statement
+            int k = switch (e) {
+                case 0:
+                    // yield 1;
+                    break;
+                case 1:
+                    // yield 2;
+                    return;
+                default:
+                    continue z;
+                    // ERROR! Illegal jump through a switch expression
+            };
+        }*/
+    }
+
+    /**
+     *
+     * use switch expression must list all the cases.
+     */
+    static void switchStatementExhaustive(Object obj) {
+        /*switch (obj) {  // error: the switch statement does not cover
+            //        all possible input values
+            case String s -> System.out.println(s);
+            case Integer i -> System.out.println("Integer");
+            // default -> System.out.println("Default");
+        }*/
     }
 }
