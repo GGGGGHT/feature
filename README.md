@@ -1,4 +1,4 @@
-[toc]
+
 
 # JDK8之后的Java新特性
 
@@ -10,7 +10,7 @@
 - jshell[^222]    Read-Eval-Print Loop
 - Compact Strings[^254]  `String` ,`AbstractStringBuilder `等底层数据结构由`char[]`转为`byte[]` 用以节省内存空间
 - Spin-Wait Hints[^285 ] 只是一个提示操作 不携带任何行为要求。 允许JVM在某些硬件平台上可能获得收益 `Thread.onSpinWait()`
-- Stack-Walking[^6] 流式的获取当前线程栈 [SpringBoot PR](https://github.com/spring-projects/spring-boot/pull/31701)
+- Stack-Walking[^259] 流式的获取当前线程栈 [SpringBoot PR](https://github.com/spring-projects/spring-boot/pull/31701)
 - Enhanced Method Handles[^274] 适用于反射 
 - Variable Handles[^193] 同上
 
@@ -69,7 +69,8 @@
 
 [^200]: https://openjdk.org/jeps/200
 [^222]: https://openjdk.org/jeps/222
-[^254]:https://openjdk.org/jeps/254
+[^254]: https://openjdk.org/jeps/254
+[^259]: https://openjdk.org/jeps/259
 [^285]: https://openjdk.org/jeps/285
 [^286]: https://openjdk.org/jeps/286 
 [^305]: https://openjdk.org/jeps/305
