@@ -39,12 +39,16 @@ import java.util.stream.Collectors;
  * {@link Class#isRecord} <br/>
  * {@link Class#getRecordComponents}
  * </p>
+ * <br/>
+ * <a href="https://blogs.oracle.com/javamagazine/post/escape-analysis-in-the-hotspot-jit-compiler">Escape Analysis</a> <br/>
+ * <a href="https://stackoverflow.com/questions/73232535/will-java-record-classes-be-allocated-on-the-stack">Will Java Record Classes Be Allocated On The Stack</a> <br/>
  */
 public class JEP395Records {
     public static void main(String[] args) {
         Point1 p = new Point1(0, 2);
         p.y();
         p.x();
+
         System.out.println(p);
         System.out.println(Point1.goldenRatio);
         System.out.println(Point1.getGoldenRatio());
