@@ -5,6 +5,12 @@ import javax.script.ScriptException;
  */
 public class JEP368TextBlock {
     public static void main(String[] args) throws ScriptException {
+        // not available
+        String name = "Joan";
+        String info = """
+            My Name is ${name}
+        """;
+        System.out.println(info);
         var html = "<html>\n" +
             "    <body>\n" +
             "        <p>Hello, world</p>\n" +
