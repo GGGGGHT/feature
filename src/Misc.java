@@ -9,6 +9,9 @@ import static java.lang.Float.NaN;
 public class Misc {
     public static void main(String[] args) {
         List<Integer> integers = List.of(1, 2, 3);
+        // uoe
+        // integers.add(1);
+        System.out.println(integers);
         Set<Integer> set = Set.of(1, 2, 3);
         Map<Integer, Integer> map = Map.of(1, 1, 2, 2, 3, 3);
 
