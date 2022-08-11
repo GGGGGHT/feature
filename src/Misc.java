@@ -1,6 +1,10 @@
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static java.lang.Float.NaN;
 
 public class Misc {
     public static void main(String[] args) {
@@ -8,8 +12,7 @@ public class Misc {
         Set<Integer> set = Set.of(1, 2, 3);
         Map<Integer, Integer> map = Map.of(1, 1, 2, 2, 3, 3);
 
-
-        /*Path path = Paths.get("/Users/wangzheng/work/feature/src/H.java");
+        /*Path path = Paths.get("H.java");
         JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
         int run = javaCompiler.run(null, null, null, "-d",
             "/tmp/heapdump",path.toString());
@@ -48,6 +51,49 @@ public class Misc {
         throw new Exception("Shuffle off to Buffalo!");
     }
 
+    public static void test4() {
+        Float x = 3.0f;
+        Float y = NaN;
+
+        System.out.println(!(x < y));
+        // Don't rewrite this line to:
+        System.out.println(x >= y);
+
+        double d = 8E307;
+        System.out.println(4.0 * d * 0.5);
+        System.out.println(2.0 * d);
+        // the first expression overflows and the second does not.
+        assert (4.0 * d * 0.5 == 2.0 * d) == false;
+    }
+
+    // Evaluation Order At Method Invocation
+    // Argument Lists are Evaluated Left-to-Right
+    public static void test5() {
+        String s = "going, ";
+        // because the assignment of the string "gone" to s occurs after the first two arguments to
+        // print3 have been evaluated.
+        print3(s, s, s = "gone");
+    }
+
+    static void print3(String a, String b, String c) {
+        System.out.println(a + b + c);
+    }
+
+    static int id;
+    public static void test6() {
+        try {
+            // because the assignment of 3 to id is not executed.
+            test(id = 1, oops(), id = 3);
+        } catch (Exception e) {
+            System.out.println(e + ", id=" + id);
+        }
+    }
+    static int test(int a, int b, int c) {
+        return a + b + c;
+    }
+    static int oops() throws Exception {
+        throw new Exception("oops");
+    }
 }
 
 
