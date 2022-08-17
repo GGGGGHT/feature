@@ -1,5 +1,12 @@
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -7,7 +14,17 @@ import java.util.Set;
 import static java.lang.Float.NaN;
 
 public class Misc {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Path path = Paths.get("/tmp/hsperfdata_ubuntu/2203");
+        // byte[] bytes = Files.readAllBytes(path);
+        // File file = new File(path);
+        InputStream is = Files.newInputStream(path);
+        ByteBuffer buffer = ByteBuffer.allocate(is.available());
+        is.read(buffer.array());
+        System.out.println(buffer);
+        System.out.println(Arrays.toString(buffer.array()));
+
+
         List<Integer> integers = List.of(1, 2, 3);
         // uoe
         // integers.add(1);
